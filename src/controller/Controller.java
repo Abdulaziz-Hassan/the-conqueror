@@ -45,7 +45,7 @@ public class Controller implements ActionListener {
         this.mainView.getContinueButton().addActionListener(this);
     }
 
-    public void addActionListeners() {
+    public void addInitialActionListeners() {
         if (worldMapFlag) {
             for (BuyButton button : this.mainView.getWorldMapView().getCairoOpeningView().getCairoCityView().getBuildingButtons().getBuyButtons())
                 button.addActionListener(this);
@@ -149,25 +149,26 @@ public class Controller implements ActionListener {
                 this.mainView.setWorldMapView(new WorldMapView(this.mainView.getCityName(), this.mainView.isMale(), this.mainView.getPlayerName(),
                         this.game.getPlayer().getTreasury(), this.game.getPlayer().getFood(), this.game.getEnemyDefendingArmies()));
                 worldMapFlag = true;
-                addActionListeners();
-                this.mainView.getWorldMapView().getControlledArmiesView().getPlayerNameLabel().setText("PLayer Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getMarchingArmiesView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getBesiegingArmiesView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getCairoOpeningView().getDefendingArmyCairoView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getRomeOpeningView().getDefendingArmyRomeView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getSpartaOpeningView().getDefendingArmySpartaView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
-                this.mainView.getWorldMapView().getControlledArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getMarchingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getBesiegingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getCairoOpeningView().getDefendingArmyCairoView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getSpartaOpeningView().getDefendingArmySpartaView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getRomeOpeningView().getDefendingArmyRomeView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-                this.mainView.getWorldMapView().getControlledArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-                this.mainView.getWorldMapView().getMarchingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-                this.mainView.getWorldMapView().getBesiegingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-                this.mainView.getWorldMapView().getRomeOpeningView().getDefendingArmyRomeView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-                this.mainView.getWorldMapView().getSpartaOpeningView().getDefendingArmySpartaView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-                this.mainView.getWorldMapView().getCairoOpeningView().getDefendingArmyCairoView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                addInitialActionListeners();
+                WorldMapView worldMapView = this.mainView.getWorldMapView();
+                worldMapView.getControlledArmiesView().getPlayerNameLabel().setText("PLayer Name : " + this.mainView.getPlayerName());
+                worldMapView.getMarchingArmiesView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
+                worldMapView.getBesiegingArmiesView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
+                worldMapView.getCairoOpeningView().getDefendingArmyCairoView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
+                worldMapView.getRomeOpeningView().getDefendingArmyRomeView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
+                worldMapView.getSpartaOpeningView().getDefendingArmySpartaView().getPlayerNameLabel().setText("Player Name : " + this.mainView.getPlayerName());
+                worldMapView.getControlledArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getMarchingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getBesiegingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getCairoOpeningView().getDefendingArmyCairoView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getSpartaOpeningView().getDefendingArmySpartaView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getRomeOpeningView().getDefendingArmyRomeView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+                worldMapView.getControlledArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                worldMapView.getMarchingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                worldMapView.getBesiegingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                worldMapView.getRomeOpeningView().getDefendingArmyRomeView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                worldMapView.getSpartaOpeningView().getDefendingArmySpartaView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+                worldMapView.getCairoOpeningView().getDefendingArmyCairoView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
                 enemyUnitButtonsMap = this.game.getEnemyDefendingArmies();
                 this.mainView.dispose();
             }
@@ -871,7 +872,7 @@ public class Controller implements ActionListener {
         }
     }
 
-    public void handleLaySiegeButton(ActionEvent e) {
+    public void handleLaySiegeButton(ActionEvent e) {  // TODO laySiege bug
         for (UnitsView frame : this.mainView.getWorldMapView().getMarchingArmiesView().getControlledArmiesUnitsView()) {
             if (e.getSource() == frame.getLaySiegeButton()) {
                 try {
@@ -908,7 +909,7 @@ public class Controller implements ActionListener {
                 indexOfSelectedBesiegingArmy = -1;
             }
         }
-    } // TODO BUG
+    }
 
     public void handleTargetCityButton(ActionEvent e) {
         if (indexOfSelectedMarchingArmy >= this.mainView.getWorldMapView().getControlledArmiesView().getControlledArmiesUnitsView().size())
@@ -1018,18 +1019,19 @@ public class Controller implements ActionListener {
                             getBesiegingArmiesView().getAllControlledArmies().get(index));
                 }
             }
-            this.mainView.getWorldMapView().getControlledArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getMarchingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getBesiegingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getCairoOpeningView().getDefendingArmyCairoView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getRomeOpeningView().getDefendingArmyRomeView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getSpartaOpeningView().getDefendingArmySpartaView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
-            this.mainView.getWorldMapView().getControlledArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-            this.mainView.getWorldMapView().getMarchingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-            this.mainView.getWorldMapView().getBesiegingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-            this.mainView.getWorldMapView().getSpartaOpeningView().getDefendingArmySpartaView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-            this.mainView.getWorldMapView().getCairoOpeningView().getDefendingArmyCairoView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
-            this.mainView.getWorldMapView().getRomeOpeningView().getDefendingArmyRomeView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            WorldMapView worldMapView = this.mainView.getWorldMapView();
+            worldMapView.getControlledArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getMarchingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getBesiegingArmiesView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getCairoOpeningView().getDefendingArmyCairoView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getRomeOpeningView().getDefendingArmyRomeView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getSpartaOpeningView().getDefendingArmySpartaView().getFoodLabel().setText("Food : " + this.game.getPlayer().getFood());
+            worldMapView.getControlledArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            worldMapView.getMarchingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            worldMapView.getBesiegingArmiesView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            worldMapView.getSpartaOpeningView().getDefendingArmySpartaView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            worldMapView.getCairoOpeningView().getDefendingArmyCairoView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
+            worldMapView.getRomeOpeningView().getDefendingArmyRomeView().getTreasuryLabel().setText("Treasury : " + this.game.getPlayer().getTreasury());
             updatePlayerLabel();
         }
     }
@@ -1048,7 +1050,7 @@ public class Controller implements ActionListener {
         }
     }
 
-    public void handleManualBattleAndAutoResolve(ActionEvent e) {
+    public void handleManualBattleAndAutoResolve(ActionEvent e) {  // TODO autoResolve bug
         for (UnitsView frame : this.mainView.getWorldMapView().getMarchingArmiesView().getControlledArmiesUnitsView()) {
             UnitButton button = null;
             for (UnitButton unitButton : frame.getUnitButtons()) {
@@ -1152,7 +1154,7 @@ public class Controller implements ActionListener {
                 break;
             }
         }
-    } // TODO Bug
+    }
 
     public void handleSiegeBattle(ActionEvent e) {
         for (UnitsView frame : this.mainView.getWorldMapView().getBesiegingArmiesView().getControlledArmiesUnitsView()) {
